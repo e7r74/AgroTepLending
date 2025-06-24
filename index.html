@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AgroFarm – Просто. Зелено. Эффективно.</title>
+  <style>
+    header {
+      background-color: #a5d6a7;
+      padding: 20px;
+      text-align: center;
+    }
+    header img{
+      width: 50px;
+      height: 50px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+    body{
+background: #deeeae;
+background: radial-gradient(circle, rgba(222, 238, 174, 1) 0%, rgba(148, 187, 233, 1) 100%);
+    }
+
+
+    h2 {
+      text-align: center;
+      padding-top: 30px;
+      font-size: 2em;
+    }
+
+    .slider-container {
+      max-width: 400px;
+      margin: 20px auto;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slider-track {
+      display: flex;
+      transition: transform 0.4s ease;
+    }
+
+    .slide {
+      flex: 0 0 100%;
+      box-sizing: border-box;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .slide img {
+      width: 100%;
+      border-radius: 15px;
+      max-height: 300px;
+      object-fit: cover;
+    }
+
+    .slide h3 {
+      margin-top: 15px;
+      font-size: 1.2em;
+    }
+
+    .slide p {
+      margin-top: 10px;
+      font-size: 0.95em;
+    }
+
+    .slider-nav {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: #8bc34a;
+      border-radius: 50%;
+      margin: 0 5px;
+      cursor: pointer;
+      opacity: 0.5;
+    }
+
+    .dot.active {
+      opacity: 1;
+    }
+
+    .cta {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .cta a {
+      background: #4caf50;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1em;
+    }
+    .arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 10px;
+}
+
+.arrow:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+
+    .compare-table {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #c8e6c9;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 40px;
+    }
+
+    .compare-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 15px;
+      background-color: #ffffff;
+      border-top: 1px solid #c8e6c9;
+    }
+
+    .compare-row:nth-child(even) {
+      background-color: #f1f8e9;
+    }
+
+    .compare-row.header {
+      background-color: #a5d6a7;
+      font-weight: bold;
+      color: #1b5e20;
+    }
+
+    .compare-cell {
+      flex: 1;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      background-color: #a5d6a7;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 600px) {
+      .compare-row {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .compare-cell {
+        padding: 5px 0;
+      }
+
+      .steps {
+        gap: 20px;
+      }
+      .step img{
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="./img/LogaAgro.png" alt="logo">
+    <h1>AgroFarm</h1>
+
+  </header>
+
+<section class="section-slider">
+    <h2>Что мы делаем?</h2>
+<button class="arrow left" id="prevBtn">&#8592;</button> 
+    <div class="slider-container">
+      
+      <div class="slider-track" id="sliderTrack">
+        <div class="slide">
+          <img src="./img/main_posadki.jpeg" alt="Поля для посадки" />
+          <h3>1. Показываем, куда сажать</h3>
+          <p>Определяем лучшие участки земли для посадки на основе агроданных и ваших целей.</p>
+        </div>
+        <div class="slide">
+          <img src="./img/p-2.webp" alt="Система полива" />
+          <h3>2. Указываем, когда и как поливать</h3>
+          <p>Даем чёткие инструкции по поливу: время, частота и объём воды.</p>
+        </div>
+        <div class="slide">
+          <img src="./img/p-3.jpeg" alt="Сбор урожая" />
+          <h3>3. Сопровождаем до урожая</h3>
+          <p>Контроль, рекомендации, удобрения и поддержка на каждом этапе.</p>
+        </div>
+      </div>
+      
+      <div class="slider-nav" id="sliderNav"></div>
+    </div>
+    <button class="arrow right" id="nextBtn">&#8594;</button>
+
+    <div class="cta">
+      <a href="#contact">Связаться с нами</a>
+    </div>
+  </section>
+
+<script>
+  const track = document.getElementById('sliderTrack');
+  const slides = document.querySelectorAll('.slide');
+  const nav = document.getElementById('sliderNav');
+  let current = 0;
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement('span');
+    dot.classList.add('dot');
+    if (i === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => {
+      current = i;
+      updateSlider();
+    });
+    nav.appendChild(dot);
+  });
+
+  function updateSlider() {
+    track.style.transform = `translateX(-${current * 100}%)`;
+    document.querySelectorAll('.dot').forEach((dot, i) => {
+      dot.classList.toggle('active', i === current);
+    });
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => {
+    if (current > 0) {
+      current--;
+      updateSlider();
+    }
+  });
+
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    if (current < slides.length - 1) {
+      current++;
+      updateSlider();
+    }
+  });
+
+  // Swipe support (optional)
+  let startX = 0;
+  track.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+  });
+
+  track.addEventListener('touchend', (e) => {
+    const endX = e.changedTouches[0].clientX;
+    if (endX < startX - 50 && current < slides.length - 1) {
+      current++;
+      updateSlider();
+    } else if (endX > startX + 50 && current > 0) {
+      current--;
+      updateSlider();
+    }
+  });
+</script>
+
+
+    <h2>До и После AgroFarm</h2>
+    <div class="compare-table">
+      <div class="compare-row header">
+        <div class="compare-cell">До AgroFarm</div>
+        <div class="compare-cell">После AgroFarm</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Урожай неравномерный, часть гибнет</div>
+        <div class="compare-cell">Однородный, стабильный</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Полив вручную, с перебоями</div>
+        <div class="compare-cell">Автоматически, по датчику</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Зависимость от 3–4 сотрудников</div>
+        <div class="compare-cell">От 1 оператора</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Отчёты в ручную</div>
+        <div class="compare-cell">В телефоне, графики</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Удобрения по графику или в ручную</div>
+        <div class="compare-cell">По датчику</div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <p>📞 +7 (777) 123-45-67 &nbsp; | &nbsp; 📧 info@agrofarm.kz</p>
+    <p>© 2025 AgroFarm</p>
+  </footer>
+
+</body>
+</html>
