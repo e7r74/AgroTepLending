@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AgroFarm – Просто. Зелено. Эффективно.</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+   <link rel="icon" type="image/png" href="./img/LogaAgro.png">
+
+
+  <style>
+    /* Ваши существующие CSS стили */
+    * { box-sizing: border-box; margin:0; padding:0; font-family:'Inter',sans-serif }
+    body {
+      background: linear-gradient(145deg, #f0f9ef, #e3f2fd);
+      color: #2e3a46;
+    }
+   header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  padding: 1px 40px;
+  background: #023f23ed; /* Темный, насыщенный зеленый градиент */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Глубокая тень */
+  transition: all 0.3s ease;
+}
+header img {
+  width: 80px; /* Более крупный логотип */
+  height: 80px;
+ 
+  object-fit: cover;
+  
+  
+}
+header h1 {
+  font-size: 3.2em; /* Крупный, выразительный заголовок */
+  color: #ffffff; /* Белый текст */
+  font-weight: 700;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4); /* Выразительная тень для текста */
+}
+    section { padding:60px 20px; }
+    h2 {
+      text-align:center; font-size:2.2em;
+      color:#388e3c; margin-bottom:40px;
+    }
+    .we_doing{ 
+     background-image: url('./img/we_doing5.png');
+     background-color: linear-gradient(145deg,#81c784,#66bb6a);
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover; /* или contain */
+  background-position: center;
+    }
+    .choose_us{
+
+    }
+    /* Контент с fade-in анимацией */
+    .fade-in {
+      opacity:0; transform:translateY(30px);
+      transition:opacity .8s ease,transform .8s ease;
+    }
+    .fade-in.visible {
+      opacity:1; transform:translateY(0);
+    }
+
+    .slider-container {
+      max-width:550px; margin:0 auto;
+      position:relative; border-radius:20px;
+      overflow:hidden; background:#fff;
+      box-shadow:0 10px 30px rgba(0,0,0,0.1);
+    }
+    .slider-track {
+      display:flex; transition:transform .5s ease-in-out;
+    }
+    .slide {
+      flex:0 0 100%; padding:25px; text-align:center;
+    }
+    .slide img {
+      width:100%; max-height:320px; object-fit:cover;
+      border-radius:15px;
+      transition:transform .3s;
+    }
+    .slide img:hover { transform:scale(1.05) }
+    .slide h3 { margin-top:20px; font-size:1.4em; color:#2e7d32 }
+    .slide p { margin-top:10px; font-size:1.05em; }
+
+    .arrow {
+      position:absolute; top:50%; transform:translateY(-50%);
+      font-size:2rem; background:rgba(255,255,255,0.85);
+      border:none; padding:12px; border-radius:50%;
+      cursor:pointer; transition:background .3s;
+    }
+    .arrow:hover { background:#fff }
+    .arrow.left { left:15px }
+    .arrow.right { right:15px }
+
+    .slider-nav { text-align:center; padding:12px; }
+    .dot {
+      display:inline-block; width:14px; height:14px;
+      background:#c8e6c9; border-radius:50%;
+      margin:0 6px; cursor:pointer;
+      transition:background .3s;
+    }
+    .dot.active { background:#66bb6a }
+
+    .cta-btn {
+      display:inline-block; margin:30px auto;
+      padding:16px 36px;
+      background:#023f23;
+      color:#fff; font-size:1.15em;
+      border:none; border-radius:12px;
+      cursor:pointer; transition:transform .3s,box-shadow .3s;
+    }
+    .cta-btn:hover {
+      transform:translateY(-3px);
+      box-shadow:0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .features {
+      
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:30px; max-width:1000px; margin:0 auto;
+    }
+    .feature {
+      background-image: url('./img/choose_us_card_1.png');
+      text-align:center; padding:20px;
+      background:#fff; border-radius:15px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.08);
+      transition:transform .3s;
+    }
+    .feature:hover { transform:translateY(-5px) }
+    .feature i {
+      font-size:2.5em; color:#66bb6a;
+      margin-bottom:15px;
+    }
+    .feature h4 { font-size:1.2em; color:#2e7d32; margin-bottom:10px }
+    .feature p { font-size:1em; color:#555 }
+
+    .compare-table {
+      max-width:900px; margin:60px auto;
+      border-radius:18px; overflow:hidden;
+      box-shadow:0 10px 30px rgba(0,0,0,0.1);
+    }
+    .compare-row {
+      display:flex; padding:22px;
+      justify-content:space-between;
+      background:#fff; border-bottom:1px solid #e0f2f1;
+      transition:background .3s;
+    }
+    .compare-row:nth-child(even){background:#f1f8e9}
+    .compare-row.header {
+      background:#81c784; color:#fff;
+      font-weight:600;
+    }
+    .compare-cell { flex:1; text-align:center }
+
+    footer {
+      background: #72A74C;
+background: linear-gradient(180deg, rgba(114, 167, 76, 1) 0%, rgba(2, 63, 35, 1) 54%);
+      text-align:center; padding:35px 15px;
+      color:#fff; font-size:0.95em;
+      position:relative;
+    }
+    footer p a { color:#fff; text-decoration:underline }
+    footer p a:hover { opacity:0.8 }
+
+    /* Модальное окно */
+    .modal {
+      display:none; position:fixed; top:0; left:0;
+      width:100%; height:100%; background:rgba(0,0,0,0.6);
+      justify-content:center; align-items:center;
+      padding:20px;
+    }
+    .modal.active { display:flex }
+    .modal-content {
+      background:#fff; border-radius:15px;
+      padding:30px; max-width:400px; width:100%;
+      text-align:center; position:relative;
+      box-shadow:0 8px 24px rgba(0,0,0,0.2);
+      animation:zoomIn .4s ease;
+    }
+    /* Centering the result section and its contents */
+    .result {
+      background-image: url('./img/result_bec.png');
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size: cover; /* или contain */
+        background-position: center;
+        margin: 0 auto; /* Centering the section itself */
+        
+        padding: 0 20px; /* Add some padding on smaller screens */
+    }
+    .result h1{
+      text-align: center;
+      margin-bottom: 40px;
+      color: #388e3c;
+      font-size: 36px;
+      font-weight: 700;
+    }
+    /* New div for centering the button */
+    .button-result {
+        text-align: center; /* Center the button within this div */
+        margin-top: 40px; /* Space above the button */
+    }
+
+    .progress-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      max-width: 1200px; /* Make sure it doesn't exceed screen width */
+      width: 100%;
+      margin: 0 auto; /* Center the grid within its parent (.result) */
+    }
+    .progress-card {
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .progress-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+    }
+    .card-label {
+      font-size: 20px;
+      font-weight: 600;
+      color: #388e3c;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+    .card-label .icon {
+      margin-right: 10px;
+      color: #388e3c;
+      font-size: 22px;
+    }
+    .bar-container {
+      background: #e9ecef;
+      border-radius: 15px;
+      overflow: hidden;
+      height: 25px;
+      position: relative;
+      margin-bottom: 10px;
+    }
+    .bar {
+      height: 100%;
+      background: linear-gradient(to right, #6ab187, #3a7bd5);
+      width: 0;
+      transition: width 1s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 10px;
+      box-sizing: border-box;
+      border-radius: 15px;
+    }
+    .progress-percent {
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+    }
+    /* Styles for "Было" and "Стало" texts */
+    .card-values {
+      margin-top: 15px;
+      font-size: 15px;
+      line-height: 1.6;
+      display: flex; /* Make it a flex container */
+      flex-direction: column; /* Stack items vertically */
+      gap: 10px; /* Space between "Было" and "Стало" items */
+    }
+
+    .value-text { /* Common style for "Было" and "Стало" */
+        display: block; /* Make them block elements so they take full width */
+        padding: 10px 15px;
+        border-radius: 8px;
+        background-color: #f8f8f8;
+        border: 1px solid #eee;
+        transition: opacity 0.5s ease-in-out; /* Smooth fade in/out */
+    }
+
+    .before-text {
+        color: #c0392b; /* Red color for "Было" */
+        background-color: #fdeaea;
+        border-color: #f7d4d4;
+    }
+
+    .after-text {
+        color: #27ae60; /* Green color for "Стало" */
+        background-color: #e9fdf2;
+        border-color: #d4f7e5;
+    }
+
+    /* Class to hide elements */
+    .hidden {
+      display: none;
+    }
+
+    /* Button inside .button-result */
+    .button-result button {
+      display: inline-block; /* Essential for text-align: center to work */
+      margin: 20px 0px ; /* Keep existing top margin */
+      padding:16px 36px;
+      background:linear-gradient(145deg,#43a047,#388e3c);
+      color:#fff; font-size:1.15em;
+      border:none; border-radius:12px;
+      cursor:pointer;
+      box-shadow:0 6px 10px rgba(0,0,0,0.15); /* Keep original shadow */
+      transition: background 0.3s ease, transform 0.2s ease, opacity 0.3s ease, cursor 0.3s ease;
+      font-weight: 600;
+    }
+    .button-result button:hover {
+      background: #2a6bb3;
+      transform: translateY(-2px);
+    }
+    @keyframes zoomIn {
+      from {transform:scale(0.8);opacity:0}
+      to {transform:scale(1);opacity:1}
+    }
+    .modal-content h3 { margin-bottom:20px }
+    .modal-content input {
+      width:100%; padding:12px; margin-bottom:15px;
+      border-radius:8px; border:1px solid #ccc;
+    }
+    .modal-content button {
+      padding:12px 28px;
+      background:#43a047; color:#fff;
+      border:none;border-radius:8px;
+      font-size:1em; cursor:pointer;
+    }
+    .modal-content .close {
+      position:absolute; top:15px; right:15px;
+      font-size:1.2em; cursor:pointer; color:#888;
+    }
+    .modal-content .close:hover { color:#333 }
+
+    @media(max-width:600px){
+  header {
+      display: flex;
+      justify-content: start;
+      /* flex-direction: column; */
+      padding: 15px;
+      gap: 10px;
+  }
+  header img {
+      width: 70px;
+      height: 70px;
+      margin-bottom: 8px;
+
+  }
+  header h1 {
+      font-size: 2.2em;
+  }
+}
+      .result {
+          margin: 0 10px; /* Adjust margin for smaller screens */
+          padding: 0;
+      }
+      .button-result {
+          margin-top: 20px; /* Adjust margin for smaller screens */
+      }
+      .button-result button{
+         background:#023f23;
+      }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="./img/LogaAgro.png" alt="Логотип AgroFarm">
+    <h1>AgroFarm</h1>
+  </header>
+
+  <section class="we_doing">
+    <div class="slider-container fade-in">
+      <h2>Что мы делаем?</h2>
+     <div class="slider-track" id="sliderTrack">
+        <div class="slide">
+          <img src="./img/main_posadki.jpeg" alt="ферма">
+          <h3>Показываем, куда сажать</h3>
+          <p>Определяем лучшие участки земли для посадки на основе агроданных и ваших целей</p>
+        </div>
+        <div class="slide">
+          <img src="./img/p-2.webp" alt="сенсоры">
+          <h3>Указываем, когда и как поливать</h3>
+          <p>Даем чёткие инструкции по поливу: время, частота и объём воды</p>
+        </div>
+        <div class="slide">
+          <img src="./img/p-3.jpeg" alt="аналитика">
+          <h3>Сопровождаем до урожая</h3>
+          <p>Контроль, рекомендации, удобрения и поддержка на каждом этапе</p>
+        </div>
+      </div>
+      <div class="slider-nav" id="sliderNav"></div>
+    </div>
+
+    <div style="text-align:center" class="fade-in" id="ctaWrap">
+      <button class="cta-btn open-modal-btn">Связаться с нами</button>
+    </div>
+  </section>
+
+  <section class="choose_us"> 
+    <h2>Почему выбирают нас</h2>
+    <div class="features fade-in">
+      <div class="feature">
+        <i class="fas fa-leaf"></i>
+        <h4>Экологично</h4>
+        <p>Используем точечный полив и датчики влажности.</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-chart-line"></i>
+        <h4>Рост урожайности</h4>
+        <p>До +30% за первый сезон с AgroFarm.</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-user-clock"></i>
+        <h4>Экономия времени</h4>
+        <p>Автоматизация снижает нагрузку до 75%.</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-mobile-alt"></i>
+        <h4>Контроль онлайн</h4>
+        <p>Управляйте и проверяйте данные с телефона.</p>
+      </div>
+    </div>
+        <div style="text-align:center" class="fade-in" id="ctaWrap">
+        <button class="cta-btn open-modal-btn">Связаться с нами</button>
+    </div>
+  </section>
+ 
+<section class="result">
+    <h1>Впечатляющий Прогресс AgroFarm</h1>
+
+  <div class="progress-grid">
+    <div class="progress-card">
+      <div class="card-label">
+        <i class="fas fa-seedling icon"></i>Оптимизация Урожая
+      </div>
+      <div class="bar-container">
+        <div class="bar" data-progress="90"><span class="progress-percent">0%</span></div>
+      </div>
+      <div class="card-values">
+        <span class="value-text before-text"><strong>Было:</strong> Неравномерный урожай, сложность планирования.</span>
+        <span class="value-text after-text hidden"><strong>Стало:</strong> Однородный и предсказуемый урожай.</span>
+      </div>
+    </div>
+
+    <div class="progress-card">
+      <div class="card-label">
+        <i class="fas fa-water icon"></i>Автоматизация Полива
+      </div>
+      <div class="bar-container">
+        <div class="bar" data-progress="95"><span class="progress-percent">0%</span></div>
+      </div>
+      <div class="card-values">
+        <span class="value-text before-text"><strong>Было:</strong> Ручной полив, высокие трудозатраты.</span>
+        <span class="value-text after-text hidden"><strong>Стало:</strong> Полностью автоматический полив, экономия ресурсов.</span>
+      </div>
+    </div>
+
+    <div class="progress-card">
+      <div class="card-label">
+        <i class="fas fa-users-slash icon"></i>Снижение Зависимости от Персонала
+      </div>
+      <div class="bar-container">
+        <div class="bar" data-progress="80"><span class="progress-percent">0%</span></div>
+      </div>
+      <div class="card-values">
+        <span class="value-text before-text"><strong>Было:</strong> Необходимость 3-4 сотрудников для управления.</span>
+        <span class="value-text after-text hidden"><strong>Стало:</strong> Управляется всего одним оператором.</span>
+      </div>
+    </div>
+
+    <div class="progress-card">
+      <div class="card-label">
+        <i class="fas fa-file-alt icon"></i>Цифровизация Отчетности
+      </div>
+      <div class="bar-container">
+        <div class="bar" data-progress="85"><span class="progress-percent">0%</span></div>
+      </div>
+      <div class="card-values">
+        <span class="value-text before-text"><strong>Было:</strong> Отчеты составлялись вручную, долго и неточно.</span>
+        <span class="value-text after-text hidden"><strong>Стало:</strong> Все отчеты мгновенно доступны в мобильном приложении.</span>
+      </div>
+    </div>
+
+    <div class="progress-card">
+      <div class="card-label">
+        <i class="fas fa-flask icon"></i>Прецизионное Внесение Удобрений
+      </div>
+      <div class="bar-container">
+        <div class="bar" data-progress="92"><span class="progress-percent">0%</span></div>
+      </div>
+      <div class="card-values">
+        <span class="value-text before-text"><strong>Было:</strong> Удобрения вносились по фиксированному графику.</span>
+        <span class="value-text after-text hidden"><strong>Стало:</strong> Точечная подача по данным датчиков, максимальная эффективность.</span>
+      </div>
+    </div>
+
+    <div class="progress-card">
+      <div class="card-label">
+        <i class="fas fa-grip-horizontal icon"></i>Расширение Ассортимента Культур
+      </div>
+      <div class="bar-container">
+        <div class="bar" data-progress="75"><span class="progress-percent">0%</span></div>
+      </div>
+      <div class="card-values">
+        <span class="value-text before-text"><strong>Было:</strong> Ограниченный выбор культур из-за трудоемкости.</span>
+        <span class="value-text after-text hidden"><strong>Стало:</strong> Возможность выращивать разнообразные культуры с минимальными усилиями.</span>
+      </div>
+    </div>
+  </div>
+<div class="button-result">
+  <button class="cta-btn" onclick="showResults()">Увидеть Результаты!</button>
+</div>
+
+
+</section>
+  <footer>
+    <p>📞 +7 (747) 823‑37‑99 &nbsp;|&nbsp; <a href="mailto:info@agrofarm.kz">info@agrofarm.kz</a></p>
+    <p>© 2025 AgroFarm</p>
+    <p><small>Сайт адаптирован для всех устройств</small></p>
+  </footer>
+
+  <div class="modal" id="contactModal">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <h3>Свяжитесь с нами</h3>
+      <form id="contactForm">
+        <input type="text" placeholder="Ваше имя" name="entry.706231462" required>
+        <input type="tel" placeholder="Телефон" name="entry.1934846954" required>
+        <input type="email" placeholder="E-mail" name="entry.1943978085">
+        <button type="submit">Отправить</button>
+        <button type="button" onclick="window.location.href='#'">Демо</button> 
+      </form>
+    </div>
+  </div>
+
+
+<script>
+  // Функция для анимации прогресс-баров и смены текста "Было" на "Стало"
+  let resultTimer; // Переменная для хранения таймера автоматического возврата
+
+  function showResults() {
+    const bars = document.querySelectorAll('.bar');
+    const progressPercents = document.querySelectorAll('.progress-percent');
+    const progressButton = document.querySelector('.button-result button');
+
+    bars.forEach((bar, index) => {
+      const progress = bar.getAttribute('data-progress');
+      bar.style.width = progress + '%';
+      
+      // Анимация счетчика процентов
+      let currentProgress = 0;
+      const interval = setInterval(() => {
+        if (currentProgress < parseInt(progress)) {
+          currentProgress++;
+          progressPercents[index].textContent = currentProgress + '%';
+        } else {
+          clearInterval(interval);
+        }
+      }, 15); // Скорость анимации
+    });
+
+    document.querySelectorAll('.progress-card').forEach(card => {
+      const beforeText = card.querySelector('.value-text.before-text');
+      const afterText = card.querySelector('.value-text.after-text');
+
+      if (beforeText && afterText) {
+        beforeText.classList.add('hidden');
+        afterText.classList.remove('hidden');
+      }
+    });
+
+    if (progressButton) {
+      progressButton.textContent = 'Прогресс показан!';
+      progressButton.disabled = true;
+      progressButton.style.opacity = '0.7';
+      progressButton.style.cursor = 'not-allowed';
+    }
+
+    // Запускаем таймер для автоматического возврата через 5 секунд (5000 миллисекунд)
+    clearTimeout(resultTimer); // Очищаем предыдущий таймер, если он был
+    resultTimer = setTimeout(resetResults, 5000); 
+  }
+
+  function resetResults() {
+    const bars = document.querySelectorAll('.bar');
+    const progressPercents = document.querySelectorAll('.progress-percent');
+    const progressButton = document.querySelector('.button-result button');
+
+    bars.forEach((bar, index) => {
+      bar.style.width = '0%'; // Возвращаем ширину прогресс-баров к 0
+      progressPercents[index].textContent = '0%'; // Возвращаем текст процентов к 0
+    });
+
+    document.querySelectorAll('.progress-card').forEach(card => {
+      const beforeText = card.querySelector('.value-text.before-text');
+      const afterText = card.querySelector('.value-text.after-text');
+
+      if (beforeText && afterText) {
+        beforeText.classList.remove('hidden');
+        afterText.classList.add('hidden');
+      }
+    });
+
+    if (progressButton) {
+      progressButton.textContent = 'Увидеть Результаты!';
+      progressButton.disabled = false;
+      progressButton.style.opacity = '1';
+      progressButton.style.cursor = 'pointer';
+    }
+  }
+
+
+  // --- JavaScript код для слайдера ---
+  const sliderContainer = document.querySelector('.slider-container');
+  const track = document.getElementById("sliderTrack");
+  const slides = document.querySelectorAll(".slide");
+  const nav = document.getElementById("sliderNav");
+
+  let currentIndex = 0;
+  const totalSlides = slides.length;
+  let autoSlideInterval;
+
+  slides.forEach((_, index) => {
+    const dot = document.createElement("span");
+    dot.classList.add("dot");
+    if (index === 0) dot.classList.add("active");
+    dot.addEventListener("click", () => {
+      currentIndex = index;
+      updateSlider();
+      stopAutoSlide();
+      startAutoSlide();
+    });
+    nav.appendChild(dot);
+  });
+
+  const dots = document.querySelectorAll(".dot");
+
+  function updateSlider() {
+    if (currentIndex < 0) currentIndex = totalSlides - 1;
+    if (currentIndex >= totalSlides) currentIndex = 0;
+
+    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+    dots.forEach(dot => dot.classList.remove("active"));
+    dots[currentIndex].classList.add("active");
+  }
+
+  function nextSlide() {
+    currentIndex++;
+    updateSlider();
+  }
+
+  function startAutoSlide() {
+    stopAutoSlide();
+    autoSlideInterval = setInterval(nextSlide, 3000);
+  }
+
+  function stopAutoSlide() {
+    clearInterval(autoSlideInterval);
+  }
+
+  startAutoSlide();
+
+  sliderContainer.addEventListener('mouseover', stopAutoSlide);
+  sliderContainer.addEventListener('mouseout', startAutoSlide);
+
+  // Fade-in анимация
+  const fadeInElems = document.querySelectorAll(".fade-in");
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  fadeInElems.forEach(el => observer.observe(el));
+
+  // --- JavaScript код для модального окна и Google Forms ---
+  const modal = document.getElementById("contactModal");
+  const openModalBtns = document.querySelectorAll(".open-modal-btn"); 
+  const closeModalBtn = document.getElementById("closeModal");
+  const contactForm = document.getElementById("contactForm");
+
+  if (openModalBtns) {
+    openModalBtns.forEach(btn => {
+      btn.addEventListener("click", () => modal.classList.add("active"));
+    });
+  }
+
+  if (closeModalBtn) {
+    closeModalBtn.addEventListener("click", () => modal.classList.remove("active"));
+  }
+
+  if (modal) {
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) modal.classList.remove("active");
+    });
+  }
+
+  if (contactForm) {
+    contactForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // !!! ВАЖНО: ЭТОТ URL ПРАВИЛЬНЫЙ ДЛЯ ВАШЕЙ ФОРМЫ (с /formResponse в конце) !!!
+      const googleFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSd4kfDzY_6suREWo2-Z7Un1RUO50oVFnJIj8bAQhSlnai8Z1g/formResponse';
+
+      const formData = new FormData(contactForm);
+
+      fetch(googleFormUrl, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'
+      })
+      .then(() => {
+        alert('Ваша заявка успешно отправлена! Мы скоро свяжемся с вами.');
+        modal.classList.remove("active");
+        contactForm.reset();
+      })
+      .catch((error) => {
+        console.error('Ошибка при отправке данных:', error);
+        alert('Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз.');
+      });
+    });
+  }
+</script>
+
+</body>
+</html>
